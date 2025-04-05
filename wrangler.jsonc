@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mrtdown-datamall-mastodon-mirror",
+  "compatibility_date": "2025-04-05",
+  "main": "src/index.ts",
+  "kv_namespaces": [
+    {
+      "binding": "STORE",
+      "id": "3fa45f000b694e18969ce49ae48562af"
+    }
+  ],
+  "triggers": {
+    "crons": [
+      "*/5 * * * *"
+    ]
+  },
+  "observability": {
+    "logs": {
+      "enabled": true
+    }
+  }
+}

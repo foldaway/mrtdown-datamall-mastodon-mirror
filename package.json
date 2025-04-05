@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "dev": "wrangler dev --test-scheduled",
+    "dev:invoke": "curl 'http://localhost:8787/__scheduled?cron=*%2F3+*+*+*+*'",
+    "typegen": "wrangler types",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
