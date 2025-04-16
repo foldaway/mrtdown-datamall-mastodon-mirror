@@ -1,3 +1,4 @@
+import { deepStrictEqual } from 'node:assert';
 import {
   LtaDataMallClient,
   type TrainServiceAlertsResult,
@@ -42,9 +43,14 @@ export default {
       await mastodonClient.statusPost(message.Content);
     }
 
-    await env.STORE.put(
-      STORE_KEY_PREVIOUS_RUN_RESULT,
-      JSON.stringify(trainServiceAlerts),
-    );
+    try {
+      deepStrictEqual(previousRunResult, trainServiceAlerts);
+    } catch (e) {
+      console.error(e);
+      await env.STORE.put(
+        STORE_KEY_PREVIOUS_RUN_RESULT,
+        JSON.stringify(trainServiceAlerts),
+      );
+    }
   },
 };
