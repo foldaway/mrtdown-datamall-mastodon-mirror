@@ -2,6 +2,9 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "mrtdown-datamall-mastodon-mirror",
   "compatibility_date": "2025-04-05",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "main": "src/index.ts",
   "kv_namespaces": [
     {
