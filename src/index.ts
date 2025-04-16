@@ -16,7 +16,7 @@ export default {
   ) {
     const datamallClient = new LtaDataMallClient(env.LTA_DATAMALL_ACCOUNT_KEY);
     const trainServiceAlerts = await datamallClient.trainServiceAlerts();
-    console.log(trainServiceAlerts);
+    console.log({ trainServiceAlerts });
 
     const previousRunResult = await env.STORE.get<TrainServiceAlertsResult>(
       STORE_KEY_PREVIOUS_RUN_RESULT,
@@ -40,7 +40,8 @@ export default {
       }
 
       const [, message] = pair;
-      await mastodonClient.statusPost(message.Content);
+      const postResponse = await mastodonClient.statusPost(message.Content);
+      console.log({ message, postResponse });
     }
 
     try {
