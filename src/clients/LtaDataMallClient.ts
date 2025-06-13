@@ -36,6 +36,7 @@ interface TrainServiceAlertsResponse {
   'odata.metadata': string;
   value: {
     Status: TrainServiceStatus;
+    // NOTE: This is sometimes empty for some reason
     AffectedSegments: Segment[];
     Message: Message[];
   };
@@ -68,7 +69,7 @@ export class LtaDataMallClient {
     const data: TrainServiceAlertsResponse = await response.json();
 
     const pairs: TrainServiceSegmentMessagePair[] = [];
-    for (let i = 0; i < data.value.AffectedSegments.length; i++) {
+    for (let i = 0; i < data.value.Message.length; i++) {
       const segment = data.value.AffectedSegments[i];
       const message = data.value.Message[i];
 
