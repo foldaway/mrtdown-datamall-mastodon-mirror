@@ -42,7 +42,7 @@ interface TrainServiceAlertsResponse {
   };
 }
 
-export type TrainServiceSegmentMessagePair = [Segment, Message];
+export type TrainServiceSegmentMessagePair = [Segment | null, Message];
 
 export interface TrainServiceAlertsResult {
   status: TrainServiceStatus;
@@ -70,7 +70,7 @@ export class LtaDataMallClient {
 
     const pairs: TrainServiceSegmentMessagePair[] = [];
     for (let i = 0; i < data.value.Message.length; i++) {
-      const segment = data.value.AffectedSegments[i];
+      const segment = data.value.AffectedSegments[i] ?? null;
       const message = data.value.Message[i];
 
       pairs.push([segment, message]);
