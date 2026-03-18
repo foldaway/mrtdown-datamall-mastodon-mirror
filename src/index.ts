@@ -1,7 +1,9 @@
 import { deepStrictEqual } from 'node:assert';
 import {
   LtaDataMallClient,
+  TrainServiceStatus,
   type TrainServiceAlertsResult,
+  type TrainServiceSegmentMessagePair,
 } from './clients/LtaDataMallClient';
 import { MastodonClient } from './clients/MastodonClient';
 import { hashTrainServicePair } from './helpers/hashTrainServicePair';
@@ -42,6 +44,36 @@ export default {
       const [, message] = pair;
       const postResponse = await mastodonClient.statusPost(message.Content);
       console.log({ message, postResponse });
+    }
+
+    const previousRunPairsByHash =
+      new Map<string, TrainServiceSegmentMessagePair>();
+    if (previousRunResult != null) {
+      for (const pair of previousRunResult.pairs) {
+        previousRunPairsByHash.set(hashTrainServicePair(pair), pair);
+      }
+    }
+
+    const currentRunHashes = new Set(
+      trainServiceAlerts.pairs.map(hashTrainServicePair),
+    );
+
+    // NOTE: Only post resolutions when transitioning from a non-normal to a normal
+    // status. This is a best-effort check — it won't correctly handle multiple
+    // simultaneous incidents since the status flag is global.
+    if (
+      trainServiceAlerts.status === TrainServiceStatus.NORMAL &&
+      previousRunResult != null &&
+      previousRunResult.status !== TrainServiceStatus.NORMAL
+    ) {
+      for (const [hash, pair] of previousRunPairsByHash) {
+        if (currentRunHashes.has(hash)) continue;
+        const [, message] = pair;
+        const postResponse = await mastodonClient.statusPost(
+          `**The following alert has been removed and overall status is now normal:**\n\n${message.Content}`,
+        );
+        console.log({ removed: message, postResponse });
+      }
     }
 
     try {
