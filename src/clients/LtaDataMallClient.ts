@@ -69,9 +69,8 @@ export class LtaDataMallClient {
     const data: TrainServiceAlertsResponse = await response.json();
 
     const pairs: TrainServiceSegmentMessagePair[] = [];
-    for (let i = 0; i < data.value.Message.length; i++) {
+    for (const [i, message] of data.value.Message.entries()) {
       const segment = data.value.AffectedSegments[i] ?? null;
-      const message = data.value.Message[i];
 
       pairs.push([segment, message]);
     }
