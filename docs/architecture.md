@@ -12,8 +12,9 @@ in `wrangler.jsonc` and currently runs every 2 minutes.
 3. The Worker reads the previous normalized result from Cloudflare KV under
    `previous_run.result`.
 4. New alert message pairs are posted to Mastodon through `MastodonClient`.
-5. If the overall status moved from disrupted to normal, removed alerts get a
-   best-effort resolution post.
+5. If the overall status moved from disrupted to normal, removed train alerts
+   get a best-effort resolution post and removed emergency alerts get a
+   DataMall-removal post.
 6. The latest normalized result is written back to KV when it differs from the
    previous result.
 
@@ -34,6 +35,9 @@ and content. This means an edited alert is treated as a new alert.
 - Missing segment data is valid input.
 - Segmentless alert messages are prefixed as emergency alerts in Mastodon posts
   so unusual DataMall emergency notices remain prominent.
+- Segmentless alert removal posts avoid train-service resolution wording because
+  these emergency messages may describe non-train incidents such as road
+  closures.
 - Mastodon post content should remain close to DataMall's alert text.
 - KV writes should happen after posting attempts so failed runs can be retried.
 - Resolution posting is best effort because DataMall exposes a global status,
