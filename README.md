@@ -82,6 +82,12 @@ Generate Worker environment types after changing bindings or secrets:
 npm run typegen
 ```
 
+Run the local validation gate:
+
+```sh
+npm run check
+```
+
 ## Deployment
 
 Deploy with Wrangler:
@@ -105,6 +111,8 @@ src/index.ts                         Scheduled Worker entrypoint
 src/clients/LtaDataMallClient.ts     LTA DataMall API client and response types
 src/clients/MastodonClient.ts        Mastodon status-posting client
 src/helpers/hashTrainServicePair.ts  Alert pair hash used for duplicate checks
+AGENTS.md                            Agent and contributor guide
+docs/                                Architecture, quality, and execution plans
 wrangler.jsonc                       Cloudflare Worker configuration
 worker-configuration.d.ts            Generated Worker runtime and Env types
 ```

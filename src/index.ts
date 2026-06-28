@@ -1,9 +1,9 @@
 import { deepStrictEqual } from 'node:assert';
 import {
   LtaDataMallClient,
-  TrainServiceStatus,
   type TrainServiceAlertsResult,
   type TrainServiceSegmentMessagePair,
+  TrainServiceStatus,
 } from './clients/LtaDataMallClient';
 import { MastodonClient } from './clients/MastodonClient';
 import { hashTrainServicePair } from './helpers/hashTrainServicePair';
@@ -14,7 +14,7 @@ export default {
   async scheduled(
     _controller: ScheduledController,
     env: Env,
-    ctx: ExecutionContext,
+    _ctx: ExecutionContext,
   ) {
     const datamallClient = new LtaDataMallClient(env.LTA_DATAMALL_ACCOUNT_KEY);
     const trainServiceAlerts = await datamallClient.trainServiceAlerts();
@@ -46,8 +46,10 @@ export default {
       console.log({ message, postResponse });
     }
 
-    const previousRunPairsByHash =
-      new Map<string, TrainServiceSegmentMessagePair>();
+    const previousRunPairsByHash = new Map<
+      string,
+      TrainServiceSegmentMessagePair
+    >();
     if (previousRunResult != null) {
       for (const pair of previousRunResult.pairs) {
         previousRunPairsByHash.set(hashTrainServicePair(pair), pair);

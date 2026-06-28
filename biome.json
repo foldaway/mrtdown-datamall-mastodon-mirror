@@ -7,7 +7,7 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**"]
+    "includes": ["**", "!worker-configuration.d.ts", "!node_modules"]
   },
   "formatter": {
     "enabled": true,

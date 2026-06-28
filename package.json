@@ -3,8 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "check": "npm run docs:check && npm run typecheck && npm run lint",
+    "docs:check": "node scripts/validate-docs.mjs",
     "dev": "wrangler dev --test-scheduled",
     "dev:invoke": "curl 'http://localhost:8787/__scheduled?cron=*%2F3+*+*+*+*'",
+    "format": "biome format --write .",
+    "lint": "biome check .",
+    "typecheck": "tsc --noEmit",
     "typegen": "wrangler types",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
