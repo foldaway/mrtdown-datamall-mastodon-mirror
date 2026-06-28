@@ -6,6 +6,7 @@ import {
   TrainServiceStatus,
 } from './clients/LtaDataMallClient';
 import { MastodonClient } from './clients/MastodonClient';
+import { formatTrainServiceAlertPost } from './helpers/formatTrainServiceAlertPost';
 import { hashTrainServicePair } from './helpers/hashTrainServicePair';
 
 const STORE_KEY_PREVIOUS_RUN_RESULT = 'previous_run.result';
@@ -42,7 +43,9 @@ export default {
       }
 
       const [, message] = pair;
-      const postResponse = await mastodonClient.statusPost(message.Content);
+      const postResponse = await mastodonClient.statusPost(
+        formatTrainServiceAlertPost(pair),
+      );
       console.log({ message, postResponse });
     }
 
@@ -72,7 +75,7 @@ export default {
         if (currentRunHashes.has(hash)) continue;
         const [, message] = pair;
         const postResponse = await mastodonClient.statusPost(
-          `**The following alert has been removed and overall status is now normal:**\n\n${message.Content}`,
+          `**The following alert has been removed and overall status is now normal:**\n\n${formatTrainServiceAlertPost(pair)}`,
         );
         console.log({ removed: message, postResponse });
       }

@@ -32,6 +32,8 @@ and content. This means an edited alert is treated as a new alert.
 
 - Posting must be idempotent across scheduled runs.
 - Missing segment data is valid input.
+- Segmentless alert messages are prefixed as emergency alerts in Mastodon posts
+  so unusual DataMall emergency notices remain prominent.
 - Mastodon post content should remain close to DataMall's alert text.
 - KV writes should happen after posting attempts so failed runs can be retried.
 - Resolution posting is best effort because DataMall exposes a global status,
