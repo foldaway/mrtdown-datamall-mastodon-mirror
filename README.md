@@ -104,6 +104,17 @@ The schedule is configured in `wrangler.jsonc`:
 }
 ```
 
+## Data source and licence
+
+This project uses LTA DataMall's Train Service Alerts API. LTA DataMall datasets
+are made available under the Singapore Open Data Licence version 1.0, and API
+access is subject to LTA's Terms of Service for API and SDK.
+
+Contains information from LTA DataMall Train Service Alerts, accessed via
+https://datamall.lta.gov.sg/, made available under the Singapore Open Data
+Licence version 1.0:
+https://datamall.lta.gov.sg/content/datamall/en/SingaporeOpenDataLicence.html
+
 ## Project structure
 
 ```text
