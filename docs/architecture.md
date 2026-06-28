@@ -33,8 +33,9 @@ and content. This means an edited alert is treated as a new alert.
 
 - Posting must be idempotent across scheduled runs.
 - Missing segment data is valid input.
-- Segmentless alert messages are prefixed as emergency alerts in Mastodon posts
-  so unusual DataMall emergency notices remain prominent.
+- Segmentless alert messages are prefixed as non-train LTA emergency alerts in
+  Mastodon posts so unusual DataMall notices remain prominent without looking
+  like MRT/LRT service disruptions.
 - Segmentless alert removal posts avoid train-service resolution wording because
   these emergency messages may describe non-train incidents such as road
   closures.

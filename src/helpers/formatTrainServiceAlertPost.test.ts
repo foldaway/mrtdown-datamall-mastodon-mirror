@@ -48,7 +48,7 @@ test('formats removed segmented train alerts as normal service resolutions', () 
   );
 });
 
-test('prefixes segmentless alerts as emergency alerts', () => {
+test('prefixes segmentless alerts as non-train emergency alerts', () => {
   const pair: TrainServiceSegmentMessagePair = [
     null,
     {
@@ -58,7 +58,7 @@ test('prefixes segmentless alerts as emergency alerts', () => {
   ];
 
   expect(formatTrainServiceAlertPost(pair)).toBe(
-    '[EMERGENCY ALERT]\n\nRoad closure affecting bus services.',
+    '[LTA NON-TRAIN EMERGENCY ALERT]\n\nRoad closure affecting bus services.',
   );
 });
 
@@ -72,6 +72,6 @@ test('formats removed segmentless alerts without train status resolution copy', 
   ];
 
   expect(formatTrainServiceAlertRemovalPost(pair)).toBe(
-    '**The following emergency alert has been removed from DataMall:**\n\n[EMERGENCY ALERT]\n\nRoad closure affecting bus services.',
+    '**The following non-train emergency alert has been removed from DataMall:**\n\n[LTA NON-TRAIN EMERGENCY ALERT]\n\nRoad closure affecting bus services.',
   );
 });
