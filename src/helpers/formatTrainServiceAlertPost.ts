@@ -1,10 +1,10 @@
 import type { TrainServiceSegmentMessagePair } from '../clients/LtaDataMallClient';
 
-const NON_TRAIN_EMERGENCY_ALERT_PREFIX = '[LTA NON-TRAIN EMERGENCY ALERT]';
+const EMERGENCY_ALERT_PREFIX = '[LTA EMERGENCY ALERT]';
 const TRAIN_ALERT_REMOVAL_PREFIX =
   '**The following alert has been removed and overall status is now normal:**';
 const EMERGENCY_ALERT_REMOVAL_PREFIX =
-  '**The following non-train emergency alert has been removed from DataMall:**';
+  '**The following emergency alert has been removed from DataMall:**';
 
 export function formatTrainServiceAlertPost(
   pair: TrainServiceSegmentMessagePair,
@@ -12,7 +12,7 @@ export function formatTrainServiceAlertPost(
   const [segment, message] = pair;
 
   if (segment == null) {
-    return `${NON_TRAIN_EMERGENCY_ALERT_PREFIX}\n\n${message.Content}`;
+    return `${EMERGENCY_ALERT_PREFIX}\n\n${message.Content}`;
   }
 
   return message.Content;
