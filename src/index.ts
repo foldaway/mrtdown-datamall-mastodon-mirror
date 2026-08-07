@@ -7,6 +7,10 @@ import {
 } from './clients/LtaDataMallClient';
 import { MastodonClient } from './clients/MastodonClient';
 import {
+  classifyTrainServiceAlert,
+  TrainServiceAlertRelevance,
+} from './helpers/classifyTrainServiceAlert';
+import {
   formatTrainServiceAlertPost,
   formatTrainServiceAlertRemovalPost,
 } from './helpers/formatTrainServiceAlertPost';
@@ -22,6 +26,11 @@ export default {
   ) {
     const datamallClient = new LtaDataMallClient(env.LTA_DATAMALL_ACCOUNT_KEY);
     const trainServiceAlerts = await datamallClient.trainServiceAlerts();
+    trainServiceAlerts.pairs = trainServiceAlerts.pairs.filter(
+      (pair) =>
+        classifyTrainServiceAlert(pair) !==
+        TrainServiceAlertRelevance.IRRELEVANT,
+    );
     console.log({ trainServiceAlerts });
 
     const previousRunResult = await env.STORE.get<TrainServiceAlertsResult>(
