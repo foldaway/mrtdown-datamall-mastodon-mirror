@@ -27,6 +27,9 @@ History reviewed:
       unknown results.
 - [x] Filter irrelevant pairs before posting, comparison, and KV persistence.
 - [x] Add tests for segmented, rail-related segmentless, and unrelated messages.
+- [x] Give rail evidence precedence over replacement-bus or road wording.
+- [x] Normalize legacy KV pairs before removal comparison and still rewrite KV.
+- [x] Log raw and discarded alerts for operational diagnosis.
 - [x] Document the filtering rule and operational trade-off.
 
 ## Validation

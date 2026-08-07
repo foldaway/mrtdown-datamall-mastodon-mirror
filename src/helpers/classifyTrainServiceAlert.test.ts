@@ -30,12 +30,22 @@ test('keeps alerts with an affected train segment', () => {
   );
 });
 
-test('keeps the production failure mode of a segmentless train update', () => {
+test('classifies the production failure mode of a segmentless train update as relevant', () => {
   expect(
     classifyTrainServiceAlert(
       segmentless('Train service on the East-West Line is delayed.'),
     ),
-  ).toBe(TrainServiceAlertRelevance.UNKNOWN);
+  ).toBe(TrainServiceAlertRelevance.RELEVANT);
+});
+
+test.each([
+  'Train service is unavailable. Free public buses are available.',
+  'East-West Line service is delayed due to an incident on the road nearby.',
+  'MRT passengers may use replacement buses between the affected stations.',
+])('preserves a segmentless rail alert with non-rail terms: %s', (content) => {
+  expect(classifyTrainServiceAlert(segmentless(content))).toBe(
+    TrainServiceAlertRelevance.RELEVANT,
+  );
 });
 
 test('keeps an unrecognised segmentless emergency rather than losing an update', () => {
