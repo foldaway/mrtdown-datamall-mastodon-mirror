@@ -11,6 +11,8 @@ in Cloudflare KV so duplicate alerts are skipped.
 
 - Polls LTA DataMall every 2 minutes.
 - Posts new train service alert messages to Mastodon.
+- Filters out segmentless LTA emergency broadcasts identified as bus, road, or
+  traffic notices.
 - Uses Cloudflare KV to remember the previous DataMall response.
 - Posts a best-effort resolution message when the overall train status changes
   from disrupted back to normal.
